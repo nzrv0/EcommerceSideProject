@@ -5,7 +5,6 @@ import Product from "../models/product.model.js";
 import connectDB from "../mongoose.js";
 export async function fetchCategory() {
     try {
-        connectDB();
         const data = await Category.find({}, "name");
         return data;
     } catch (error) {

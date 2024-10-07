@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import Cookies from "js-cookie";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import {
@@ -13,10 +14,10 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
-import { userCreate } from "@/lib/actions/user.actions";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
 import { FiAlertTriangle } from "react-icons/fi";
+import axios from "axios";
 
 const formSchema = z.object({
     email: z.string().email({ message: "invalid email adress" }).min(8).max(20),
@@ -24,9 +25,12 @@ const formSchema = z.object({
 });
 
 function SingUpForm() {
-    const [error, setError] = useState("");
+    const [error, setError] = useState("Unknown error appeared");
+    const cookie = Cookies;
     const router = useRouter();
+    const token = cookie.get("token");
     const { toast } = useToast();
+
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -34,22 +38,37 @@ function SingUpForm() {
             password: "",
         },
     });
-    async function onSubmit(values: z.infer<typeof formSchema>) {
-        const userExists = await userCreate(values.email, values.password);
 
-        if (userExists?.message) {
-            setError(userExists.message);
-            toast({
-                title: <FiAlertTriangle size={20} />,
-                description: (
-                    <pre className="w-[340px] rounded-md bg-white text-black absolute top-0 right-0 p-6">
-                        <code className="text-black">{error}</code>
-                    </pre>
-                ),
-            });
-            return;
+    async function onSubmit(values: z.infer<typeof formSchema>) {
+        if (!token) {
+            try {
+                const response = await axios.post(
+                    "http://localhost:3001/user/register",
+                    {
+                        email: values.email,
+                        password: values.password,
+                    }
+                );
+                console.log(response);
+                if (response.status === 201) {
+                    router.push("/signin");
+                } else {
+                    cookie.remove("token");
+                    setError("User already exists");
+                    toast({
+                        title: <FiAlertTriangle size={20} />,
+                        description: (
+                            <pre className="w-[340px] rounded-md bg-white text-black absolute top-0 right-0 p-6">
+                                <code className="text-black">{error}</code>
+                            </pre>
+                        ),
+                    });
+                }
+            } catch (err) {
+                throw new Error(`cannot create user ${err}`);
+            }
         } else {
-            router.push("/signup");
+            router.push("/");
         }
     }
     return (
@@ -103,7 +122,7 @@ function SingUpForm() {
                 </span>
                 <Link
                     className="text-text-2 text-xl font-medium underline"
-                    href="/"
+                    href="/signin"
                 >
                     Log in
                 </Link>

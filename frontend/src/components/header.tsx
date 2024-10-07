@@ -4,21 +4,21 @@ import { usePathname } from "next/navigation";
 
 import {
     Command,
-    CommandEmpty,
-    CommandGroup,
+    // CommandEmpty,
+    // CommandGroup,
     CommandInput,
-    CommandItem,
+    // CommandItem,
     CommandList,
 } from "@/components/ui/command";
 import {
     NavigationMenu,
     NavigationMenuContent,
-    NavigationMenuIndicator,
+    // NavigationMenuIndicator,
     NavigationMenuItem,
     NavigationMenuLink,
     NavigationMenuList,
     NavigationMenuTrigger,
-    NavigationMenuViewport,
+    // NavigationMenuViewport,
 } from "@/components/ui/navigation-menu";
 import {
     RiHeartLine,
@@ -29,7 +29,7 @@ import {
     RiStarLine,
 } from "react-icons/ri";
 import { MdOutlineCancel } from "react-icons/md";
-import { map } from "zod";
+// import { map } from "zod";
 import { ReactNode } from "react";
 
 const Nav: { Path: string; Name: string }[] = [

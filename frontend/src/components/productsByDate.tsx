@@ -11,7 +11,12 @@ import ItemCard from "./itemCard";
 import { fetchProdcuts } from "@/lib/actions/product.actions";
 import { Button } from "./ui/button";
 const date = new Date();
-async function ProductsByDate({ Title, SubTitle, Counter }: any) {
+interface PRODUCT {
+    Title: string | null;
+    SubTitle?: string | null;
+    Counter?: any | null;
+}
+async function ProductsByDate({ Title, SubTitle, Counter }: PRODUCT) {
     const data = await fetchProdcuts();
     return (
         <section className="flex flex-col gap-6">

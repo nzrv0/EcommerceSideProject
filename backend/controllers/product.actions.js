@@ -4,7 +4,6 @@ import Product from "../models/product.model.js";
 // import { map } from "zod";
 export async function fetchProdcuts() {
     try {
-        connectDB();
         const data = Product.find({ category: "Electronics" });
 
         return data;
@@ -15,7 +14,6 @@ export async function fetchProdcuts() {
 
 export async function fetchProductById(id) {
     try {
-        await connectDB();
         const data = await Product.findById(id);
         return data;
     } catch (err) {

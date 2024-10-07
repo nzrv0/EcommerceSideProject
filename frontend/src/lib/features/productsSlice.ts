@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { fetchProductById } from "../actions/product.actions";
-
+import axios from "axios";
 interface Product {
     id: string;
     name: string;
@@ -25,7 +24,15 @@ interface InitialState {
 
 const initialState: InitialState = {
     products: [],
-    product: {},
+    product: {
+        id: "",
+        name: "",
+        description: "",
+        price: 0,
+        category: "",
+        colours: [],
+        quantity: 0,
+    },
     currentColor: "",
     amount: 0,
     isLoading: true,
@@ -34,9 +41,10 @@ const initialState: InitialState = {
 export const fetchProduct = createAsyncThunk(
     "products/fetchProduct",
     async (id: string) => {
-        const data = await fetchProductById(id);
-        const serilze = await JSON.parse(JSON.stringify(data));
-        return serilze;
+        const response = await axios.get(
+            `http://localhost:3001/products/${id}`
+        );
+        return response.data;
     }
 );
 
@@ -46,16 +54,16 @@ export const productsSlice = createSlice({
     reducers: {
         increase: (state, action) => {
             state.products.map((product) => {
-                if (product.inStock && product.id === action.id) {
-                    product.quantity += 1;
-                }
+                // if (product.inStock && product.id === action?.id) {
+                //     product.quantity += 1;
+                // }
             });
         },
         decrease: (state, action) => {
             state.products.map((product) => {
-                if (product.inStock && product.id === action.id) {
-                    product.quantity -= 1;
-                }
+                // if (product.inStock && product.id === action.id) {
+                //     product.quantity -= 1;
+                // }
             });
         },
         setColor: (state, action) => {

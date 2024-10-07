@@ -16,7 +16,7 @@ const buttonStyle = cva(
     {
         variants: {
             variant: {
-                deafult: ["text-secondary2", " font-regular", "text-black"],
+                "deafult": ["text-secondary2", " font-regular", "text-black"],
                 primary: ["font-medium", "bg-button2", "hover:bg-hoverButton"],
                 secondary: [
                     "font-medium",

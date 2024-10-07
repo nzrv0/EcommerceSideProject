@@ -1,12 +1,8 @@
-"use client";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import ShowRoute from "@/components/ui/showRoute";
 import Image from "next/image";
 import Womans from "@/public/about.png";
-import useSingleProduct from "@/lib/hooks/useSingleProduct";
 function ContactPage() {
-    const data = useSingleProduct("651e5f003f5c5e1e1847b302");
-    console.log(`${data}`);
     return (
         <div className="container mt-20 ">
             <ShowRoute />

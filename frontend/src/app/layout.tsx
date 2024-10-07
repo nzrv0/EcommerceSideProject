@@ -6,6 +6,7 @@ import Header from "@/components/header";
 import Footer from "@/components/footer";
 import { Toaster } from "@/components/ui/toaster";
 import StoreProvider from "./StoreProvider";
+import { Suspense } from "react";
 const poppins = Poppins({
     subsets: ["latin"],
     weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
@@ -24,13 +25,15 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body className={poppins.className}>
-                <StoreProvider>
-                    <Navbar />
-                    <Header />
-                    {children}
-                    <Footer />
-                    <Toaster />
-                </StoreProvider>
+                <Suspense fallback={"...loading"}>
+                    <StoreProvider>
+                        <Navbar />
+                        <Header />
+                        {children}
+                        <Footer />
+                        <Toaster />
+                    </StoreProvider>
+                </Suspense>
             </body>
         </html>
     );

@@ -5,6 +5,14 @@ import { FaRegHeart, FaHeart, FaRegEye, FaEye } from "react-icons/fa6";
 import { Button } from "@/components/ui/button";
 import { GoStarFill } from "react-icons/go";
 import { cn } from "@/lib/utils";
+interface ITEM {
+    discount: number | any;
+    image: any;
+    title: string;
+    price: number | any;
+    rating: number | any;
+    review: string;
+}
 async function ItemCard({
     discount,
     image,
@@ -12,9 +20,9 @@ async function ItemCard({
     price,
     rating,
     review,
-}: any) {
-    let watch = true;
-    let like = true;
+}: ITEM) {
+    const watch = true;
+    const like = true;
     return (
         <section className="flex flex-col ">
             <Card className="bg-secondary w-72 h-64 group border-none rounded-sm ">
