@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import {
     Carousel,
@@ -11,9 +12,9 @@ import { IoHomeOutline } from "react-icons/io5";
 
 import { LuToyBrick } from "react-icons/lu";
 import { FiBookOpen } from "react-icons/fi";
-
-async function CategoriesCorusel() {
-    const data = await fetchCategory();
+import useCategories from "@/lib/hooks/useCategories";
+function CategoriesCorusel() {
+    const data = useCategories() || [];
     return (
         <section className="flex flex-col gap-6">
             <div className="flex items-center gap-4">
@@ -36,7 +37,7 @@ async function CategoriesCorusel() {
                                 className="group-hover:text-white text-black"
                             />
                             <h3 className="text-text2 font-normal text-xl group-hover:text-white">
-                                {data[0].name}
+                                {data[0]?.name}
                             </h3>
                         </div>
                     </CarouselItem>
@@ -47,7 +48,7 @@ async function CategoriesCorusel() {
                                 className="group-hover:text-white text-black"
                             />
                             <h3 className="text-text2 font-normal text-xl group-hover:text-white">
-                                {data[1].name}
+                                {data[1]?.name}
                             </h3>
                         </div>
                     </CarouselItem>{" "}
@@ -58,7 +59,7 @@ async function CategoriesCorusel() {
                                 className="group-hover:text-white text-black"
                             />
                             <h3 className="text-nowrap text-text2 font-normal text-xl group-hover:text-white">
-                                {data[2].name}
+                                {data[2]?.name}
                             </h3>
                         </div>
                     </CarouselItem>{" "}
@@ -69,7 +70,7 @@ async function CategoriesCorusel() {
                                 className="group-hover:text-white text-black"
                             />
                             <h3 className="text-text2 font-normal text-xl group-hover:text-white">
-                                {data[3].name}
+                                {data[3]?.name}
                             </h3>
                         </div>
                     </CarouselItem>{" "}
@@ -80,7 +81,7 @@ async function CategoriesCorusel() {
                                 className="group-hover:text-white text-black"
                             />
                             <h3 className="text-text2 font-normal text-xl group-hover:text-white">
-                                {data[4].name}
+                                {data[4]?.name}
                             </h3>
                         </div>
                     </CarouselItem>

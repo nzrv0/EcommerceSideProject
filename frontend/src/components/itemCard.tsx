@@ -11,7 +11,7 @@ interface ITEM {
     title: string;
     price: number | any;
     rating: number | any;
-    review: string;
+    review: string[] | any;
 }
 async function ItemCard({
     discount,

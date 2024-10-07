@@ -1,3 +1,4 @@
+"use client";
 import * as React from "react";
 
 import {
@@ -8,16 +9,18 @@ import {
     CarouselPrevious,
 } from "@/components/ui/carousel";
 import ItemCard from "./itemCard";
-import { fetchProdcuts } from "@/lib/actions/product.actions";
 import { Button } from "./ui/button";
+import useProdcutsByCategory from "@/lib/hooks/useProductsByCategory";
+
 const date = new Date();
 interface PRODUCT {
     Title: string | null;
     SubTitle?: string | null;
     Counter?: any | null;
 }
-async function ProductsByDate({ Title, SubTitle, Counter }: PRODUCT) {
-    const data = await fetchProdcuts();
+function ProductsByDate({ Title, SubTitle, Counter }: PRODUCT) {
+    const data = useProdcutsByCategory("lalalal");
+
     return (
         <section className="flex flex-col gap-6">
             <div className="flex items-center gap-4">

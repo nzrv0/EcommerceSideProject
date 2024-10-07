@@ -1,7 +1,4 @@
-"use server";
-import connectDB from "../mongoose.js";
 import Product from "../models/product.model.js";
-// import { map } from "zod";
 export async function fetchProdcuts() {
     try {
         const data = Product.find({ category: "Electronics" });

@@ -1,3 +1,4 @@
+"use client";
 import * as React from "react";
 
 import {
@@ -7,11 +8,12 @@ import {
     CarouselNext,
     CarouselPrevious,
 } from "@/components/ui/carousel";
-import { fetchProdcuts } from "@/lib/actions/product.actions";
 import { Button } from "./ui/button";
 import ItemDetailedCard from "./itemDetailedCard";
-async function OurProducts() {
-    const data = await fetchProdcuts();
+import useProdcutsByCategory from "@/lib/hooks/useProductsByCategory";
+function OurProducts() {
+    const data = useProdcutsByCategory();
+
     return (
         <section className="flex flex-col gap-6">
             <div className="flex flex-col items-start gap-5">
