@@ -56,7 +56,7 @@ function SingUpForm() {
                     cookie.remove("token");
                     setError("User already exists");
                     toast({
-                        title: <FiAlertTriangle size={20} />,
+                        title: "Warning",
                         description: (
                             <pre className="w-[340px] rounded-md bg-white text-black absolute top-0 right-0 p-6">
                                 <code className="text-black">{error}</code>
