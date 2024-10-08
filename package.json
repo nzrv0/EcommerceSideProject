@@ -21,11 +21,10 @@
         "jose": "^5.9.3",
         "mongodb": "^6.9.0",
         "mongoose": "^8.7.0",
-        "nodemon": "^3.1.7"
-    },
-    "devDependencies": {
+        "nodemon": "^3.1.7",
         "@babel/cli": "^7.25.7",
         "@babel/core": "^7.25.7",
         "@babel/preset-env": "^7.25.7"
-    }
+    },
+    "devDependencies": {}
 }
