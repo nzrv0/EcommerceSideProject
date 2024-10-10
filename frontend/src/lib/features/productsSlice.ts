@@ -47,7 +47,7 @@ export const fetchByCategory = createAsyncThunk(
     "products/fetchByCategory",
     async (category?: string) => {
         const response = await axios.get(
-            `http://localhost:3001/products/product/category/:${category}`
+            `http://localhost:3001/products/product/category/${category}`
         );
         return response.data;
     }

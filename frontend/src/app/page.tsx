@@ -14,7 +14,7 @@ import Perfume from "@/public/parfume.png";
 import { RiCaravanLine } from "react-icons/ri";
 import { TfiHeadphoneAlt } from "react-icons/tfi";
 import { LuShieldCheck } from "react-icons/lu";
-
+import { Suspense } from "react";
 const mockData = [
     {
         Icon: <RiCaravanLine size={30} color="white" />,
@@ -38,17 +38,25 @@ export default function Home() {
     return (
         <div className="container w-full h-auto">
             <section className="flex w-full h-full items-start justify-center mb-36">
-                <SideMenu />
+                <Suspense fallback={"..loading"}>
+                    <SideMenu />
+                </Suspense>
                 <ProductCaruesel />
             </section>
-            <ProductsByDate Title="Today's" SubTitle="Flash Sales" Counter />
-            <hr className="max-w-[1170px] my-[70px]" />
-            <CategoriesCorusel />
-            <hr className="max-w-[1170px] my-[70px]" />
-            <ProductsByDate
-                Title="This Month"
-                SubTitle="Best Selling Products"
-            />
+            <Suspense fallback={"..loading"}>
+                <ProductsByDate
+                    Title="Today's"
+                    SubTitle="Flash Sales"
+                    Counter
+                />
+                <hr className="max-w-[1170px] my-[70px]" />
+                <CategoriesCorusel />
+                <hr className="max-w-[1170px] my-[70px]" />
+                <ProductsByDate
+                    Title="This Month"
+                    SubTitle="Best Selling Products"
+                />
+            </Suspense>
             <section className="bg-black p-10 mb-20 mt-36">
                 <div className="flex items-center gap-7 ">
                     <div className="flex flex-col items-start gap-8 text-white">

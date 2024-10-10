@@ -63,7 +63,6 @@ export const filterSlice = createSlice({
         filterProducts: (state, action) => {
             const { search, category, color, price, inStock } = action.payload;
             let tempProducts = state.OrginalproductItems;
-            console.log(current(tempProducts));
             if (search !== "") {
                 tempProducts = tempProducts.filter((item) =>
                     item.name.toLowerCase().startsWith(search.toLowerCase())

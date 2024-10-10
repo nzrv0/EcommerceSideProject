@@ -1,22 +1,29 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
-import { FaRegHeart, FaHeart, FaRegEye, FaEye } from "react-icons/fa6";
+import { FaRegHeart, FaHeart } from "react-icons/fa6";
 import { Button } from "@/components/ui/button";
 import { GoStarFill } from "react-icons/go";
 import { cn } from "@/lib/utils";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@/lib/store";
+import { addWish } from "@/lib/features/whisListSlice";
+import { addCard } from "@/lib/features/cartSlice";
+function ItemDetailedCard(props: any) {
+    const dispatch = useDispatch<AppDispatch>();
+    const [like, setLike] = useState(false);
+    const [card, setCard] = useState(false);
 
-function ItemDetailedCard({
-    image,
-    title,
-    price,
-    rating,
-    review,
-    isNew,
-    colors,
-}: any) {
-    let watch = true;
-    let like = true;
+    const { id, image, title, price, rating, review, isNew, colors } = props;
+    function handleLike() {
+        dispatch(addWish(props));
+        setLike(!like);
+    }
+    function handleCard() {
+        dispatch(addCard(props));
+        setCard(!card);
+    }
     return (
         <section className="flex flex-col ">
             <Card className="bg-secondary w-72 h-64 group border-none rounded-sm ">
@@ -37,22 +44,12 @@ function ItemDetailedCard({
                             variant="deafult"
                             size="default"
                             className="justify-center gap-0 p-2 bg-white rounded-full"
+                            onClick={handleLike}
                         >
-                            {like ? (
+                            {!like ? (
                                 <FaRegHeart size={16} />
                             ) : (
                                 <FaHeart size={16} />
-                            )}
-                        </Button>
-                        <Button
-                            variant="deafult"
-                            size="default"
-                            className="justify-center p-2 bg-white rounded-full"
-                        >
-                            {watch ? (
-                                <FaRegEye size={20} />
-                            ) : (
-                                <FaEye size={20} />
                             )}
                         </Button>
                     </div>
@@ -63,7 +60,11 @@ function ItemDetailedCard({
                         width={100}
                         height={100}
                     ></Image>
-                    <Button className="absolute bottom-0 left-0 w-full justify-center py-3 rounded-b-lg bg-black text-white hover:bg-black hidden group-hover:flex">
+                    <Button
+                        className="absolute bottom-0 left-0 w-full justify-center py-3 rounded-b-lg bg-black text-white hover:bg-black hidden group-hover:flex"
+                        onClick={handleCard}
+                        disabled={card}
+                    >
                         Add To Cart
                     </Button>
                 </CardContent>
@@ -96,7 +97,7 @@ function ItemDetailedCard({
                             )}
                         </div>
                         <span className="text-sm font-semibold text-text1">
-                            ({review.length})
+                            ({review?.length})
                         </span>
                     </div>
                 </div>

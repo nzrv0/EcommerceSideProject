@@ -3,11 +3,15 @@ import productsSlice from "./features/productsSlice";
 import usersSlice from "./features/usersSlice";
 import categorySlice from "./features/categorySlice";
 import filterSlice from "./features/filterSlice";
+import wishListSlice from "./features/whisListSlice";
+import cartSlice from "./features/cartSlice";
 export const rootReducer = combineSlices({
     productsSlice,
     usersSlice,
     categorySlice,
     filterSlice,
+    wishListSlice,
+    cartSlice,
 });
 
 export const store = () => {

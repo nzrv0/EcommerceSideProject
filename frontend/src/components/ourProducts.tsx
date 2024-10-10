@@ -41,6 +41,7 @@ function OurProducts() {
                             >
                                 <ItemDetailedCard
                                     isNew
+                                    id={item._id}
                                     image={item.image}
                                     title={item.name}
                                     price={item.price}
@@ -53,6 +54,7 @@ function OurProducts() {
                                 className="mr-8 md:basis-1/2 lg:basis-1/4"
                             >
                                 <ItemDetailedCard
+                                    id={item._id}
                                     image={item.image}
                                     title={item.name}
                                     price={item.price}

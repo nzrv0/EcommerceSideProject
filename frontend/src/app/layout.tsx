@@ -25,15 +25,13 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body className={poppins.className}>
-                <Suspense fallback={"...loading"}>
-                    <StoreProvider>
-                        <Navbar />
-                        <Header />
-                        {children}
-                        <Footer />
-                        <Toaster />
-                    </StoreProvider>
-                </Suspense>
+                <StoreProvider>
+                    <Navbar />
+                    <Header />
+                    {children}
+                    <Footer />
+                    <Toaster />
+                </StoreProvider>
             </body>
         </html>
     );

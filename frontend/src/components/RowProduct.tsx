@@ -24,7 +24,7 @@ function ListProduct() {
                                 height={100}
                             />
                             <Link
-                                href={`/products/${_id}`}
+                                href={`/product/${_id}`}
                                 type="button"
                                 className="absolute top-2/4 left-2/4 z-20"
                             >

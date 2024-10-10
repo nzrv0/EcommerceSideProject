@@ -1,8 +1,8 @@
 "use client";
-// import { fetchCategory } from "@/lib/actions/category.actions";
 import useCategories from "@/lib/hooks/useCategories";
 import Link from "next/link";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
+
 function SideMenu() {
     const resoult = useCategories() || [];
     return (
