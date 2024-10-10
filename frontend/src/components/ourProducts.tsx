@@ -12,7 +12,7 @@ import { Button } from "./ui/button";
 import ItemDetailedCard from "./itemDetailedCard";
 import useProdcutsByCategory from "@/lib/hooks/useProductsByCategory";
 function OurProducts() {
-    const data = useProdcutsByCategory();
+    const data = useProdcutsByCategory("Electronics");
 
     return (
         <section className="flex flex-col gap-6">

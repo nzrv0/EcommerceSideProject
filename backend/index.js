@@ -19,9 +19,7 @@ app.use(cors());
 app.use("/", productsRoute);
 app.use("/", usersRoute);
 app.use("/", categoryRoute);
-app.get("/", (req, res) => {
-    res.status(200).send("this is my page");
-});
+
 const PORT = process.env.PORT || 6001;
 
 app.listen(PORT, async () => {

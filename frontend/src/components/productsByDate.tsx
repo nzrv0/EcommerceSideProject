@@ -19,7 +19,7 @@ interface PRODUCT {
     Counter?: any | null;
 }
 function ProductsByDate({ Title, SubTitle, Counter }: PRODUCT) {
-    const data = useProdcutsByCategory("lalalal");
+    const data = useProdcutsByCategory("Electronics");
 
     return (
         <section className="flex flex-col gap-6">

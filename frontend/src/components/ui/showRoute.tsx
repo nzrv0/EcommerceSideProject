@@ -20,6 +20,12 @@ function ShowRoute({ routes }: { routes?: string[] }) {
     return (
         <Breadcrumb>
             <BreadcrumbList>
+                <BreadcrumbItem>
+                    <BreadcrumbLink href="/">Home</BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator>
+                    <RxSlash />
+                </BreadcrumbSeparator>
                 {routes.map((param, key) => {
                     const last_item = routes.length - 1 === key;
                     const link = param

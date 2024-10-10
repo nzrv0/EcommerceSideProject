@@ -1,7 +1,7 @@
 import Product from "../models/product.model.js";
-export async function fetchProdcuts() {
+export async function fetchProdcuts(category) {
     try {
-        const data = Product.find({ category: "Electronics" });
+        const data = Product.find({ category: category });
 
         return data;
     } catch (error) {
@@ -12,6 +12,14 @@ export async function fetchProdcuts() {
 export async function fetchProductById(id) {
     try {
         const data = await Product.findById(id);
+        return data;
+    } catch (err) {
+        throw new Error(`Could not get a product from database ${err}`);
+    }
+}
+export async function fetchAllProduct(size) {
+    try {
+        const data = await Product.find().limit(size);
         return data;
     } catch (err) {
         throw new Error(`Could not get a product from database ${err}`);

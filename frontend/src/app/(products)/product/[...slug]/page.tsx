@@ -1,6 +1,6 @@
 import React from "react";
 import ProductsByDate from "@/components/productsByDate";
-import ProductSection from "../../ProductSection";
+import ProductSection from "../../../../components/ProductSection";
 
 function ProductPage({ params }: { params: { slug: string[] } }) {
     const id: string = params.slug.pop() || "";

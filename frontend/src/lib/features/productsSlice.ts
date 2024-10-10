@@ -1,22 +1,9 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-interface Product {
-    id: string;
-    name: string;
-    image?: string;
-    description: string;
-    price: number;
-    rating?: number;
-    reviews?: string[];
-    category: string;
-    inStock?: boolean;
-    colours: string[];
-    quantity: number;
-    discount?: number;
-}
+
 interface InitialState {
-    products: Product[];
-    product: Product;
+    products: ProductInterface[];
+    product: ProductInterface;
     currentColor: string;
     amount: number;
     isLoading: boolean;
@@ -42,15 +29,26 @@ export const fetchProduct = createAsyncThunk(
     "products/fetchProduct",
     async (id: string) => {
         const response = await axios.get(
-            `http://localhost:3001/products/${id}`
+            `http://localhost:3001/products/product/id/${id}`
         );
         return response.data;
     }
 );
 export const fetchAllProducts = createAsyncThunk(
     "products/fetchAllProducts",
+    async (size: string) => {
+        const response = await axios.get(
+            `http://localhost:3001/products?size=5`
+        );
+        return response.data;
+    }
+);
+export const fetchByCategory = createAsyncThunk(
+    "products/fetchByCategory",
     async (category?: string) => {
-        const response = await axios.get(`http://localhost:3001/products`);
+        const response = await axios.get(
+            `http://localhost:3001/products/product/category/:${category}`
+        );
         return response.data;
     }
 );
@@ -96,6 +94,16 @@ export const productsSlice = createSlice({
             state.products = action.payload;
         });
         builder.addCase(fetchAllProducts.rejected, (state) => {
+            state.isLoading = false;
+        });
+        builder.addCase(fetchByCategory.pending, (state) => {
+            state.isLoading = true;
+        });
+        builder.addCase(fetchByCategory.fulfilled, (state, action) => {
+            state.isLoading = false;
+            state.products = action.payload;
+        });
+        builder.addCase(fetchByCategory.rejected, (state) => {
             state.isLoading = false;
         });
     },
