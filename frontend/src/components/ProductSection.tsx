@@ -34,6 +34,8 @@ function ProductSection({ id }: { id: string }) {
                 <Product name={name} image={image} />
                 <div className="flex flex-col items-start ml-[71px]">
                     <ProductDetails
+                        id={id}
+                        image={image}
                         name={name}
                         description={description}
                         price={price}

@@ -1,3 +1,4 @@
+"use client";
 import React, { Suspense, useState } from "react";
 import Cookies from "js-cookie";
 import { z } from "zod";
@@ -37,41 +38,36 @@ function SignInForm() {
         },
     });
     async function onSubmit(values: z.infer<typeof formSchema>) {
-        if (!token) {
-            try {
-                const { data, status } = await axios.post(
-                    "http://localhost:3001/user/login",
-                    {
-                        email: values.email,
-                        password: values.password,
+        try {
+            const { data, status } = await axios.post(
+                "http://localhost:3001/user/login",
+                {
+                    email: values.email,
+                    password: values.password,
+                },
+                {
+                    headers: {
+                        "Content-Type": "application/json",
                     },
-                    {
-                        headers: {
-                            "Content-Type": "application/json",
-                        },
-                    }
-                );
-                console.log(token);
-                if (status === 200) {
-                    cookie.set("token", data.token);
-                    router.push("/");
-                } else {
-                    cookie.remove("token");
-                    setError("Invalid parametrs");
-                    toast({
-                        title: "Warning",
-                        description: (
-                            <pre className="w-[340px] rounded-md bg-white text-black absolute top-0 right-0 p-6">
-                                <code className="text-black">{error}</code>
-                            </pre>
-                        ),
-                    });
                 }
-            } catch (err) {
-                throw new Error(`cannot create user ${err}`);
+            );
+            if (status === 200) {
+                cookie.set("token", data.token);
+                router.push("/");
+            } else {
+                cookie.remove("token");
+                setError("Invalid parametrs");
+                toast({
+                    title: "Warning",
+                    description: (
+                        <pre className="w-[340px] rounded-md bg-white text-black absolute top-0 right-0 p-6">
+                            <code className="text-black">{error}</code>
+                        </pre>
+                    ),
+                });
             }
-        } else {
-            router.push("/");
+        } catch (err) {
+            throw new Error(`cannot create user ${err}`);
         }
     }
     return (

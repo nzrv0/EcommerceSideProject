@@ -1,5 +1,14 @@
 import { createSlice, current } from "@reduxjs/toolkit";
 
+interface ProductInterface {
+    id: string;
+    name: string;
+    image?: string;
+    price: number;
+    quantity: number;
+    subtotal: number;
+}
+
 interface InitialState {
     cardProducts: ProductInterface[];
 }
@@ -27,38 +36,47 @@ export const cartSlice = createSlice({
                 );
             }
         },
-        removeCard: (state, action) => {
-            const { id } = action.payload;
-            const exists = state.cardProducts
-                ?.map((item) => item.id)
-                .includes(id);
-            if (!exists) {
-                state.cardProducts = JSON.parse(
-                    JSON.stringify(
-                        state.cardProducts.filter((item) => item.id !== id)
-                    )
-                );
-            }
-        },
         increaseProductItem: (state, action) => {
-            let tempProduct = state.cardProducts.filter(
-                (item) => item.id === action.payload
-            );
-            tempProduct.map((item) => {
-                item.quantity += 1;
-                item.subTotal += item.quantity;
-                return tempProduct;
+            const id = action.payload;
+
+            state.cardProducts.map((item) => {
+                if (item.id === id) {
+                    item.quantity += 1;
+                    item.subtotal = item.price * item.quantity;
+                }
             });
-            state.cardProducts = tempProduct;
+            console.log(current(state.cardProducts));
         },
         decreaseProductItem: (state, action) => {
-            let tempProduct = state.cardProducts.filter(
-                (item) => item.id === action.payload
+            const id = action.payload;
+            state.cardProducts.map((item) => {
+                if (item.id === id && item.subtotal !== 0) {
+                    item.quantity -= 1;
+                    item.subtotal = item.subtotal - item.price;
+                }
+                if (item.quantity === 0) {
+                    state.cardProducts = state.cardProducts.filter(
+                        (item) => item.id !== id
+                    );
+                }
+            });
+        },
+        setCard: (state) => {
+            const data: ProductInterface[] = JSON.parse(
+                window.localStorage.getItem("card") as string
             );
-            tempProduct.map((item) => (item.quantity += 1));
+            if (data) state.cardProducts = data;
+            state.cardProducts.map((item) => {
+                item.quantity = 1;
+                item.subtotal = item.price;
+            });
+            // setWishList: (state) => {
+            //     const data = JSON.parse(window.localStorage.getItem("wish"));
+            //     state.wishList = data;
+            // },
         },
     },
 });
-export const { addCard, removeCard, increaseProductItem, decreaseProductItem } =
+export const { addCard, increaseProductItem, decreaseProductItem, setCard } =
     cartSlice.actions;
 export default cartSlice.reducer;

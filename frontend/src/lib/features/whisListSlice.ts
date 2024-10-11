@@ -13,28 +13,29 @@ export const wishListSlice = createSlice({
     initialState,
     reducers: {
         addWish: (state, action) => {
+            const data = JSON.parse(window.localStorage.getItem("wish"));
+            let tempProducts = data;
             const { id } = action.payload;
-            let tempProducts = state.wishList;
             const exists = tempProducts?.find((item) => item.id === id) || [];
             if (exists.length === 0) {
                 tempProducts.push(action.payload);
             } else {
-                tempProducts = JSON.parse(
-                    JSON.stringify(
-                        tempProducts.filter((item) => item.id !== id)
-                    )
-                );
+                tempProducts = tempProducts.filter((item) => item.id !== id);
             }
             state.wishList = tempProducts;
-
             if (typeof window !== "undefined") {
                 window.localStorage.setItem(
                     "wish",
-                    JSON.stringify(state.wishList ? state.wishList : "")
+                    JSON.stringify(tempProducts ? tempProducts : "")
                 );
             }
         },
+
+        setWishList: (state) => {
+            const data = JSON.parse(window.localStorage.getItem("wish"));
+            state.wishList = data;
+        },
     },
 });
-export const { addWish } = wishListSlice.actions;
+export const { addWish, removeWish, setWishList } = wishListSlice.actions;
 export default wishListSlice.reducer;
