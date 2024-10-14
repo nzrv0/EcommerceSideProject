@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/navbar";
-import Header from "@/components/header";
-import Footer from "@/components/footer";
+import Header from "@/components/shared/Header";
+import Navbar from "@/components/shared/Navbar";
+import Footer from "@/components/shared/Footer";
 import { Toaster } from "@/components/ui/toaster";
-import StoreProvider from "./StoreProvider";
+import StoreProvider from "@/providers/StoreProvider";
 import { Suspense } from "react";
 const poppins = Poppins({
     subsets: ["latin"],
@@ -25,13 +25,15 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body className={poppins.className}>
-                <StoreProvider>
-                    <Navbar />
-                    <Header />
-                    {children}
-                    <Footer />
-                    <Toaster />
-                </StoreProvider>
+                <Suspense fallback={"..loading"}>
+                    <StoreProvider>
+                        <Header />
+                        <Navbar />
+                        {children}
+                        <Footer />
+                        <Toaster />
+                    </StoreProvider>
+                </Suspense>
             </body>
         </html>
     );

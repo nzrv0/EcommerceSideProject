@@ -3,7 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 
 import { Input } from "@/components/ui/input";
-import { Button } from "./ui/button";
+import { Button } from "@/components/ui/button";
 import footerQr from "@/public/footerQr.png";
 import {
     Form,
@@ -40,8 +40,8 @@ const Account: { [key: string]: string }[] = [
     { "My Account": "/account" },
     { "Login/Register": "/signup" },
     { Cart: "/cart" },
-    { Whislist: "/whislist" },
-    { Shop: "/shop" },
+    { Whislist: "/wish" },
+    { Shop: "/products" },
 ];
 const QuickLink: { [key: string]: string }[] = [
     { "Privacy Policy": "/" },
@@ -73,6 +73,7 @@ const SocialAccounts = [
 ];
 function Footer() {
     const form = useForm<z.infer<typeof FormSchema>>({
+        mode: "onSubmit",
         resolver: zodResolver(FormSchema),
         defaultValues: {
             email: "",
@@ -83,9 +84,7 @@ function Footer() {
             title: "You submitted the following values:",
             description: (
                 <pre className="mt-2 w-[340px] rounded-md bg-white text-black p-4 absolute top-0">
-                    <code className="text-black">
-                        {JSON.stringify(data, null, 2)}
-                    </code>
+                    <code className="text-black">example@gmail.com</code>
                 </pre>
             ),
         });

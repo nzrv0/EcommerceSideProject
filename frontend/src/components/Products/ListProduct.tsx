@@ -1,15 +1,10 @@
 "use client";
 import React from "react";
-import useAllProducts from "@/lib/hooks/useAllProducts";
 import Image from "next/image";
 import Link from "next/link";
-import { useSelector } from "react-redux";
-import { RootState } from "@/lib/store";
 
-function ListProduct() {
-    const products = useSelector<RootState>(
-        (state) => state.filterSlice.productItems
-    );
+function ListProduct({ products }: any) {
+    
     return (
         <div className="max-w-full flex flex-col gap-y-12">
             {products?.map((product: any) => {

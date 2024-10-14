@@ -7,7 +7,7 @@ interface Categories {
     _id: string;
     name: string;
 }
-export default function useCategories(category?: string): Categories[] {
+export default function useCategories(category?: string): Categories[] | [] {
     const dispatch = useDispatch<AppDispatch>();
     const products = useSelector<RootState>(
         (state) => state.categorySlice.categories

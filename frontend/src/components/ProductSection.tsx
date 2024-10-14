@@ -11,7 +11,7 @@ import {
     CardTitle,
 } from "@/components/ui/card";
 import useSingleProduct from "@/lib/hooks/useSingleProduct";
-import ShowRoute from "@/components/ui/showRoute";
+import ShowRoute from "@/components/shared/ShowRoute";
 
 function ProductSection({ id }: { id: string }) {
     const {
@@ -34,6 +34,8 @@ function ProductSection({ id }: { id: string }) {
                 <Product name={name} image={image} />
                 <div className="flex flex-col items-start ml-[71px]">
                     <ProductDetails
+                        id={id}
+                        image={image}
                         name={name}
                         description={description}
                         price={price}

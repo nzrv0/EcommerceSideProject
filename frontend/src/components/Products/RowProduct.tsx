@@ -3,18 +3,17 @@ import React from "react";
 import { IoSearch } from "react-icons/io5";
 import Image from "next/image";
 import Link from "next/link";
-import { useSelector } from "react-redux";
-import { RootState } from "@/lib/store";
-function ListProduct() {
-    const products = useSelector<RootState>(
-        (state) => state.filterSlice.productItems
-    );
+
+function ListProduct({ products }: any) {
     return (
         <div className="max-w-full h-auto grid grid-cols-3 gap-x-6 gap-y-8">
-            {products?.map((product) => {
+            {products?.map((product: any) => {
                 const { _id, name, image, price } = product;
                 return (
-                    <div className="flex flex-col w-full gap-6" key={_id}>
+                    <div
+                        className="flex flex-col w-full gap-6 border-2 p-4 rounded-md"
+                        key={_id}
+                    >
                         <div className="after:rounded-lg group relative after:content-[''] after:w-full after:h-full after:absolute after:top-0 after:left-0 after:opacity-0 after:hover:opacity-30 after:bg-black after:hover:transition-all after:hover:duration-700 after:transition-all after:duration-700">
                             <Image
                                 className="w-full h-56 object-contain "

@@ -1,4 +1,4 @@
-import { createSlice, current } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 interface FilterState {
     productItems: ProductInterface[] | [];
@@ -30,7 +30,7 @@ export const filterSlice = createSlice({
     initialState,
     reducers: {
         sortProducts: (state, action) => {
-            let tempProducts = state.OrginalproductItems;
+            let tempProducts = state.productItems;
             state.sortArray = action.payload;
             switch (state.sortArray) {
                 case "lowest":

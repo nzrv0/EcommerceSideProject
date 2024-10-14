@@ -1,11 +1,17 @@
-import React from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import { Button } from "./ui/button";
 import { GoStarFill } from "react-icons/go";
 import { FiMinus, FiPlus } from "react-icons/fi";
 import { LuHeart } from "react-icons/lu";
 import { cn } from "@/lib/utils";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@/lib/store";
+import { addWish } from "@/lib/features/whisListSlice";
 
 interface PRODUCT {
+    id: string | any;
+    image: string | any;
     name: string | any;
     description: string | any;
     price: number | any;
@@ -15,15 +21,29 @@ interface PRODUCT {
     colours: string[] | any;
 }
 
-function ProductDetails({
-    name,
-    description,
-    price,
-    rating,
-    reviews,
-    inStock,
-    colours,
-}: PRODUCT) {
+function ProductDetails(props: any) {
+    const {
+        id,
+        image,
+        name,
+        description,
+        price,
+        rating,
+        reviews,
+        inStock,
+        colours,
+    } = props;
+    const [quantity, setQuantity] = useState<number>(1);
+    const dispatch = useDispatch<AppDispatch>();
+    function increaseQuantity() {
+        setQuantity((item) => item + 1);
+    }
+    function decreaseQuantity() {
+        if (quantity > 1) {
+            setQuantity((item) => item - 1);
+        }
+    }
+
     return (
         <>
             <h1 className="text-text2 text-3xl font-semibold">{name}</h1>
@@ -81,13 +101,21 @@ function ProductDetails({
             </div>
             <div className="flex gap-4">
                 <div className="flex">
-                    <Button className="px-3 py-5" variant="secondary">
+                    <Button
+                        onClick={decreaseQuantity}
+                        className="px-3 py-5"
+                        variant="secondary"
+                    >
                         <FiMinus size={20} />
                     </Button>
                     <div className="border-2  border-text2 border-opacity-50 py-2 px-8 text-text2 text-2xl font-medium min-h-full grid place-items-center">
-                        2
+                        {quantity}
                     </div>
-                    <Button className="px-3 py-5" variant="primary">
+                    <Button
+                        onClick={increaseQuantity}
+                        className="px-3 py-5"
+                        variant="primary"
+                    >
                         <FiPlus size={20} color="white" />
                     </Button>
                 </div>
@@ -95,10 +123,15 @@ function ProductDetails({
                     variant="primary"
                     size="secondary"
                     className="text-white"
+                    onClick={() => {}}
                 >
                     Buy Now
                 </Button>
-                <Button variant="secondary" className="px-[10px] py-[11px]">
+                <Button
+                    variant="secondary"
+                    className="px-[10px] py-[11px]"
+                    onClick={() => dispatch(addWish(props))}
+                >
                     <LuHeart size={30} />
                 </Button>
             </div>

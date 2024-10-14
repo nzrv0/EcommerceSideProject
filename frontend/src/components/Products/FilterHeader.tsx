@@ -36,7 +36,7 @@ function FilterHeader() {
             </div>
             <p className="text-base text-clr-grey-3 font-normal inline-block whitespace-nowrap">{`${productsLength?.length} Products Found`}</p>
             <hr className="w-full h-0.5 bg-black opacity-20 inline-block mx-8" />
-            <div className="whitespace-nowrap">
+            <div className="whitespace-nowrap flex items-center gap-3">
                 Sort By
                 <select
                     onChange={(e) => dispatch(sortProducts(e.target.value))}

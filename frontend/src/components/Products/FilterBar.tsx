@@ -6,13 +6,14 @@ import { AppDispatch, RootState } from "@/lib/store";
 import useAllProducts from "@/lib/hooks/useAllProducts";
 import { setProducts, filterProducts } from "@/lib/features/filterSlice";
 import { cn } from "@/lib/utils";
+
 const categories = [
     "Electronics",
-    "Living Room",
-    "Kitchen",
-    "Bedroom",
-    "Dining",
-    "Kids",
+
+    "Clothing",
+    "Books",
+    "Toys",
+    "Home Appliances",
 ];
 const colors = [
     "Black",
@@ -32,14 +33,15 @@ interface Filter {
     price?: string;
     inStock?: boolean;
 }
+const InitialState = {
+    search: "",
+    category: "All",
+    color: "All",
+    price: "0",
+    inStock: false,
+};
 function FilterBar() {
-    const [filter, setFilter] = useState<Filter>({
-        search: "",
-        category: "All",
-        color: "All",
-        price: "0",
-        inStock: false,
-    });
+    const [filter, setFilter] = useState<Filter>(InitialState);
     const { search, category, color, price, inStock } = filter;
     const products = useAllProducts("20");
     const dispatch = useDispatch<AppDispatch>();
@@ -51,7 +53,8 @@ function FilterBar() {
     }, [products]);
     useEffect(() => {
         dispatch(filterProducts(filter));
-    }, [search, category, color, price, inStock]);
+    }, [filter, setFilter]);
+
     return (
         <aside className="max-w-[200px] h-min w-full flex flex-col items-start sticky top-4 left-0">
             <div className="md:sticky md:top-4">
@@ -108,7 +111,7 @@ function FilterBar() {
                                 onClick={() =>
                                     setFilter({ ...filter, color: item })
                                 }
-                                className={`w-4 h-4 p-2 inline-block relative mr-2 rounded-full opacity-50 ${
+                                className={`w-4 h-4 p-2 inline-block relative mr-2 rounded-full opacity-50 border border-black ${
                                     color === item && "p-2 opacity-100"
                                 }`}
                                 style={{ backgroundColor: `${item}` }}
@@ -149,16 +152,8 @@ function FilterBar() {
                 </div>
                 <button
                     type="button"
-                    onClick={() =>
-                        setFilter({
-                            search: "",
-                            category: categories[0],
-                            color: "All",
-                            price: "0",
-                            inStock: false,
-                        })
-                    }
-                    className="px-2 py-1 bg-red-700 text-white font-normal rounded-md text-xs tracking-spacing"
+                    onClick={() => setFilter(InitialState)}
+                    className="px-2 py-1 bg-black text-white font-normal rounded-md text-xs tracking-spacing"
                 >
                     Clear Filters
                 </button>

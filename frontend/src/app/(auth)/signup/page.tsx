@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from "react";
 import Cookies from "js-cookie";
 import { z } from "zod";
@@ -39,35 +41,31 @@ function SingUpForm() {
     });
 
     async function onSubmit(values: z.infer<typeof formSchema>) {
-        if (!token) {
-            try {
-                const response = await axios.post(
-                    "http://localhost:3001/user/register",
-                    {
-                        email: values.email,
-                        password: values.password,
-                    }
-                );
-                console.log(response);
-                if (response.status === 201) {
-                    router.push("/signin");
-                } else {
-                    cookie.remove("token");
-                    setError("User already exists");
-                    toast({
-                        title: "Warning",
-                        description: (
-                            <pre className="w-[340px] rounded-md bg-white text-black absolute top-0 right-0 p-6">
-                                <code className="text-black">{error}</code>
-                            </pre>
-                        ),
-                    });
+        try {
+            const response = await axios.post(
+                "http://localhost:3001/user/register",
+                {
+                    email: values.email,
+                    password: values.password,
                 }
-            } catch (err) {
-                throw new Error(`cannot create user ${err}`);
+            );
+            console.log(response);
+            if (response.status === 201) {
+                router.push("/signin");
+            } else {
+                cookie.remove("token");
+                setError("User already exists");
+                toast({
+                    title: "Warning",
+                    description: (
+                        <pre className="w-[340px] rounded-md bg-white text-black absolute top-0 right-0 p-6">
+                            <code className="text-black">{error}</code>
+                        </pre>
+                    ),
+                });
             }
-        } else {
-            router.push("/");
+        } catch (err) {
+            throw new Error(`cannot create user ${err}`);
         }
     }
     return (
