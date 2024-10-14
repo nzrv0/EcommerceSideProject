@@ -24,7 +24,7 @@ export default function useProdcutsByCategory(category?: string): Products[] {
     );
     useEffect(() => {
         dispatch(fetchByCategory(category));
-    }, [category, dispatch]);
+    }, [category]);
     if (products) {
         return products as Products[];
     }

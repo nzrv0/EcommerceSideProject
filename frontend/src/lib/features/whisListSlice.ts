@@ -1,41 +1,42 @@
 import { createSlice, current } from "@reduxjs/toolkit";
 
 interface InitialState {
-    wishList: ProductInterface[];
+  wishList: ProductInterface[];
 }
 
 const initialState: InitialState = {
-    wishList: [],
+  wishList: [],
 };
 
 export const wishListSlice = createSlice({
-    name: "products",
-    initialState,
-    reducers: {
-        addWish: (state, action) => {
-            const data = JSON.parse(window.localStorage.getItem("wish"));
-            let tempProducts = data;
-            const { id } = action.payload;
-            const exists = tempProducts?.find((item) => item.id === id) || [];
-            if (exists.length === 0) {
-                tempProducts.push(action.payload);
-            } else {
-                tempProducts = tempProducts.filter((item) => item.id !== id);
-            }
-            state.wishList = tempProducts;
-            if (typeof window !== "undefined") {
-                window.localStorage.setItem(
-                    "wish",
-                    JSON.stringify(tempProducts ? tempProducts : "")
-                );
-            }
-        },
-
-        setWishList: (state) => {
-            const data = JSON.parse(window.localStorage.getItem("wish"));
-            state.wishList = data;
-        },
+  name: "products",
+  initialState,
+  reducers: {
+    addWish: (state, action) => {
+      let tempProducts = state.wishList;
+      const { id } = action.payload;
+      const exists = state.wishList?.map((item) => item.id).includes(id);
+      if (!exists) {
+        tempProducts.push(action.payload);
+      } else {
+        tempProducts = tempProducts.filter((item: any) => item.id !== id);
+      }
+      state.wishList = tempProducts;
+      if (typeof window !== "undefined") {
+        window.localStorage.setItem(
+          "wish",
+          JSON.stringify(state.wishList ? state.wishList : ""),
+        );
+      }
     },
+
+    setWishList: (state) => {
+      const data: ProductInterface[] = JSON.parse(
+        window.localStorage.getItem("card") as string,
+      );
+      if (data) state.wishList = data;
+    },
+  },
 });
-export const { addWish, removeWish, setWishList } = wishListSlice.actions;
+export const { addWish, setWishList } = wishListSlice.actions;
 export default wishListSlice.reducer;

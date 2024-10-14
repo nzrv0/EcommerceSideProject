@@ -1,5 +1,5 @@
 import React, { Suspense } from "react";
-import ProductsByDate from "@/components/productsByDate";
+import ProductsByDate from "@/components/ProductsByDate";
 import ProductSection from "../../../../components/ProductSection";
 
 function ProductPage({ params }: { params: { slug: string[] } }) {
