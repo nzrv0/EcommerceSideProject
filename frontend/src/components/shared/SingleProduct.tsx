@@ -5,18 +5,21 @@ import { FaRegHeart, FaHeart } from "react-icons/fa6";
 import { Button } from "@/components/ui/button";
 import { GoStarFill } from "react-icons/go";
 import { cn } from "@/lib/utils";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "@/lib/store";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "@/lib/store";
 import { addWish } from "@/lib/features/whisListSlice";
 import { addCard } from "@/lib/features/cartSlice";
+import handleAddWish from "@/components/wishlist/action";
+
 function SingleProduct(props: any) {
-  const { id, image, title, price, rating, review, discount, isNew } = props;
+  const { id, image, title, price, rating, review, discount } = props;
   const dispatch = useDispatch<AppDispatch>();
   const [like, setLike] = useState(false);
   const [card, setCard] = useState(false);
 
   function handleLike() {
     dispatch(addWish(props));
+    handleAddWish(id);
     setLike(!like);
   }
   function handleCard() {

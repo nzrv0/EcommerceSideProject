@@ -30,11 +30,16 @@ export const wishListSlice = createSlice({
       }
     },
 
-    setWishList: (state) => {
+    setWishList: (state, action) => {
+      const user_wish = action.payload;
       const data: ProductInterface[] = JSON.parse(
         window.localStorage.getItem("card") as string,
       );
-      if (data) state.wishList = data;
+      if (user_wish) {
+        state.wishList = user_wish;
+      } else {
+        state.wishList = data;
+      }
     },
   },
 });

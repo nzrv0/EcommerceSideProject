@@ -71,10 +71,7 @@ function ProductsByDate({ Title, SubTitle, Counter }: PRODUCT) {
       <Carousel className="relative w-full select-none gap-8">
         <CarouselContent className="-ml-1">
           {data.map((item, key) => (
-            <CarouselItem
-              key={item._id}
-              className="mr-8 md:basis-1/2 lg:basis-1/4"
-            >
+            <CarouselItem key={key} className="mr-8 md:basis-1/2 lg:basis-1/4">
               <SingleProduct
                 id={item._id}
                 discount={item.discount}
@@ -91,9 +88,7 @@ function ProductsByDate({ Title, SubTitle, Counter }: PRODUCT) {
         <CarouselNext />
       </Carousel>
       <Button className="mt-14 self-center text-white">
-      <Link href="/products">
-        View All Products
-        </Link>
+        <Link href="/products">View All Products</Link>
       </Button>
     </section>
   );

@@ -13,13 +13,18 @@ import {
   decreaseProductItem,
   setCard,
 } from "@/lib/features/cartSlice";
+import { fetchUser } from "@/lib/features/usersSlice";
+import useUserData from "@/lib/hooks/useUserData";
 const CardTitles = ["Product", "Price", "Quantity", "Subtotal"];
 function CartItems() {
   const dispatch = useDispatch<AppDispatch>();
   let data = useSelector<RootState>((state) => state.cartSlice.cardProducts);
+  let userData = useUserData();
+
   useEffect(() => {
-    dispatch(setCard());
+    dispatch(setCard(userData?.whishlist));
   }, []);
+
   return (
     <div className="flex flex-col gap-10">
       <div className="flex items-center justify-between bg-white px-10 py-6 shadow">
@@ -48,7 +53,7 @@ function CartItems() {
           </div>
           <p className="text-xl font-normal text-text2">${item.price}</p>
           <div className="flex items-center justify-between gap-x-4 rounded-sm border border-black border-opacity-40 px-3 py-2">
-            1
+            {item.quantity}
             <div className="flex flex-col justify-between">
               <Button
                 variant="deafult"

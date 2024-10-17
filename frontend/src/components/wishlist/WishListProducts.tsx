@@ -1,18 +1,28 @@
 "use client";
-import React, { useEffect } from "react";
-import { Button } from "./ui/button";
-import SingleProduct from "./shared/SingleProduct";
+import React, { useEffect, useState } from "react";
+import { Button } from "../ui/button";
+import SingleProduct from "../shared/SingleProduct";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/lib/store";
 import { setWishList } from "@/lib/features/whisListSlice";
+import useUserData from "@/lib/hooks/useUserData";
 import Link from "next/link";
+import useSingleProduct from "@/lib/hooks/useSingleProduct";
+import Cookies from "js-cookie";
+import { fetchUser } from "@/lib/features/usersSlice";
+
 function WishListProducts() {
+  const [id, setId] = useState<string>("");
+  const [allProducts, setAllProducts] = useState();
+  const single = useSingleProduct(id);
   const dispatch = useDispatch<AppDispatch>();
   let data = useSelector<RootState>((state) => state.wishListSlice.wishList);
+  let user_data = useUserData();
 
   useEffect(() => {
-    dispatch(setWishList());
-  }, []);
+    dispatch(setWishList(user_data?.whishlist));
+  }, [user_data, dispatch]);
+
   return (
     <section className="mt-20 flex flex-col gap-16">
       <div className="flex items-center justify-between">
@@ -24,13 +34,13 @@ function WishListProducts() {
         </Button>
       </div>
 
-      <div className="relative flex w-full select-none items-start gap-4 gap-y-6">
+      <div className="relative flex w-full select-none flex-wrap items-start gap-x-1 gap-y-6">
         {data?.map((item: any) => (
           <SingleProduct
-            key={item.id}
+            key={item._id}
             id={item.id}
             image={item.image}
-            title={item.title}
+            title={item.name}
             price={item.price}
             rating={item.rating}
             discount={item.discount}

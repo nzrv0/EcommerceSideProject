@@ -60,11 +60,16 @@ export const cartSlice = createSlice({
         }
       });
     },
-    setCard: (state) => {
+    setCard: (state, action) => {
+      const user_wishes = action.payload;
       const data: ProductInterface[] = JSON.parse(
         window.localStorage.getItem("card") as string,
       );
-      if (data) state.cardProducts = data;
+      if (user_wishes) {
+        state.cardProducts = user_wishes;
+      } else {
+        state.cardProducts = data;
+      }
       state.cardProducts.map((item) => {
         item.quantity = 1;
         item.subtotal = item.price;

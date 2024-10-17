@@ -1,14 +1,16 @@
 import User from "../models/user.model.js";
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
-
-export async function fetchUserInfo(id) {
+import Category from "../models/category.model.js";
+import Product from "../models//product.model.js";
+export async function fetchUserInfo(email) {
     try {
-        const userId = new mongoose.Types.ObjectId(id);
-        const data = await User.findById({ _id: userId });
+        const data = await User.findOne({ email: email }, "-password").populate(
+            { path: "whishlist", model: Product }
+        );
         return data;
     } catch (error) {
-        throw new Error(`Can't find user realted to id: ${error.message}`);
+        throw new Error(`Can't find user realted to email: ${error.message}`);
     }
 }
 
@@ -23,19 +25,15 @@ export async function updateUser({
     newPassword,
 }) {
     try {
-        await User.findByIdAndUpdate(
-            userId,
-            {
-                // firstName,
-                // lastName,
-                email,
-                // phoneNumber,
-                password,
-                adress,
-                newPassword,
-            },
-            { upsert: true }
-        );
+        await User.findByIdAndUpdate(userId, {
+            // firstName,
+            // lastName,
+            email,
+            // phoneNumber,
+            password,
+            adress,
+            newPassword,
+        });
     } catch (error) {
         throw new Error(`Faild to update/creat user: ${error}`);
     }
@@ -54,11 +52,12 @@ export async function userValidate(email, password) {
     }
 }
 
-export async function userCreate(email, password) {
+export async function userCreate(email, password, res) {
     try {
         const userExists = await User.findOne({ email: email });
         if (userExists) {
-            return { message: "User already exists!" };
+            // return { message: "User already exists!" };
+            res.status(409).json({ message: "User already exists" });
         } else {
             const hashPassword = await bcrypt.hash(password, 10);
             const user = new User({
@@ -69,5 +68,24 @@ export async function userCreate(email, password) {
         }
     } catch (error) {
         throw new Error(`Faild to create user ${error}`);
+    }
+}
+
+export async function addWishList(email, wish) {
+    try {
+        await User.findOneAndUpdate(
+            { email: email },
+            {
+                $addToSet: { whishlist: wish },
+            }
+        );
+        await User.findOneAndUpdate(
+            { email: email },
+            {
+                $pullAll: { whishlist: wish },
+            }
+        );
+    } catch (err) {
+        throw new Error(`Faild to add wish ${err}`);
     }
 }

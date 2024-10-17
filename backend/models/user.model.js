@@ -17,7 +17,6 @@ const userSchema = new mongoose.Schema(
         whishlist: [
             {
                 type: mongoose.Types.ObjectId,
-                length: Number,
                 ref: "Product",
             },
         ],

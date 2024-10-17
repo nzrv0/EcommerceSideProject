@@ -4,15 +4,16 @@ import {
     userCreate,
     fetchUserInfo,
     userValidate,
+    addWishList,
 } from "../controllers/user.actions.js";
 import { verifyToken } from "../middleware/auth.js";
 const router = express.Router();
 
-router.get("/users/user/:id", async (req, res) => {
+router.get("/user/validate", verifyToken, async (req, res) => {
     try {
-        const { id } = req.params;
-        const users = fetchUserInfo(id);
-        res.status(200).json(users);
+        const { email } = req.user;
+        const user = await fetchUserInfo(email);
+        res.status(200).json(user);
     } catch (err) {
         res.status(404).json({ message: err });
     }
@@ -37,8 +38,18 @@ router.post("/user/login", async (req, res) => {
 router.post("/user/register", async (req, res) => {
     try {
         const { email, password } = req.body;
-        const user = await userCreate(email, password);
-        res.status(201).json(user);
+        userCreate(email, password, res);
+    } catch (err) {
+        res.status(409).json({ message: err.message });
+    }
+});
+router.post("/user/addwish", verifyToken, async (req, res) => {
+    try {
+        const { email } = req.user;
+        const { wish } = req.body;
+
+        const resoult = addWishList(email, wish);
+        res.status(200).json({ message: resoult });
     } catch (err) {
         res.status(409).json({ message: err.message });
     }
