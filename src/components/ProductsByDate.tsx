@@ -18,20 +18,20 @@ interface PRODUCT {
   Counter?: any | null;
 }
 
-const date = new Date();
+// const date = new Date();
 
 const date_information = [
   {
     name: "Days",
-    date: date.getDate(),
+    date: 12,
   },
   {
     name: "Hours",
-    date: date.getHours(),
+    date: 12,
   },
   {
     name: "Minutes",
-    date: date.getMinutes(),
+    date: 12,
   },
   {
     name: "Seconds",
@@ -69,19 +69,23 @@ function ProductsByDate({ Title, SubTitle, Counter }: PRODUCT) {
       </div>
       <Carousel className="relative w-full select-none gap-8">
         <CarouselContent className="-ml-1">
-          {data.map((item, key) => (
-            <CarouselItem key={key} className="mr-8 md:basis-1/2 lg:basis-1/4">
-              <SingleProduct
-                id={item._id}
-                discount={item.discount}
-                image={item.image}
-                title={item.name}
-                price={item.price}
-                rating={item.rating}
-                review={item.reviews}
-              />
-            </CarouselItem>
-          ))}
+          {data &&
+            data.map((item, key) => (
+              <CarouselItem
+                key={key}
+                className="mr-8 md:basis-1/2 lg:basis-1/4"
+              >
+                <SingleProduct
+                  id={item._id}
+                  discount={item.discount}
+                  image={item.image}
+                  title={item.name}
+                  price={item.price}
+                  rating={item.rating}
+                  review={item.reviews}
+                />
+              </CarouselItem>
+            ))}
         </CarouselContent>
         <CarouselPrevious />
         <CarouselNext />

@@ -9,13 +9,13 @@ import OurProductsShowcase from "@/components/OurProductsShowcase";
 import OurAdvantages from "@/components/shared/OurAdvantages";
 
 export default function Home() {
-    return (
-        <div className="container w-full h-auto">
-            <main className="flex w-full h-full items-start justify-center mb-36">
-                <SideMenu />
-                <ProductCaruesel />
-            </main>
-            <ProductsByDate Title="Today's" SubTitle="Flash Sales" Counter />
+  return (
+    <div className="container h-auto w-full">
+      <main className="mb-36 flex h-full w-full items-start justify-center">
+        <SideMenu />
+        <ProductCaruesel />
+      </main>
+      {/* <ProductsByDate Title="Today's" SubTitle="Flash Sales" Counter />
             <hr className="max-w-[1170px] my-[70px]" />
             <CategoriesCorusel />
             <hr className="max-w-[1170px] my-[70px]" />
@@ -26,7 +26,7 @@ export default function Home() {
             <TimeLimitedProduct />
             <OurProducts />
             <OurProductsShowcase />
-            <OurAdvantages />
-        </div>
-    );
+            <OurAdvantages /> */}
+    </div>
+  );
 }

@@ -1,5 +1,4 @@
 "use client";
-import useCategories from "@/lib/hooks/useCategories";
 import Link from "next/link";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 

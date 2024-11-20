@@ -38,32 +38,35 @@ export default function ProductCaruesel() {
   };
   return (
     <div className="w-full border-l-2 pl-10 pt-10">
-      <Carousel setApi={setApi}>
+      <div></div>
+      {/* <Carousel setApi={setApi}>
         <CarouselContent>
           {Array.from({ length: 5 }).map((_, index) => (
             <CarouselItem key={index}>
               <Card className="h-80 bg-black">
                 <CardContent className="mx-16 flex select-none items-center text-white">
                   <div className="flex flex-col gap-5">
-                    <span className="z-40 flex items-center gap-6">
+                    <div className="z-40 flex items-center gap-6">
                       <FaApple color="white" size={40} />
-                      <h1 className="text-xl font-normal">iPhone 14 Series</h1>
-                    </span>
-                    <h2 className="leadign-[60px] text-6xl font-semibold tracking-[2px]">
+                      <span className="text-xl font-normal">
+                        iPhone 14 Series
+                      </span>
+                    </div>
+                    <div className="leadign-[60px] text-6xl font-semibold tracking-[2px]">
                       Up to 10% off Voucher
-                    </h2>
-                    <Button
-                      variant="deafult"
-                      className="flex items-center gap-2 p-0 text-white"
+                    </div>
+                    <Link
+                      href="/products"
+                      className="w-min border-b-0 font-medium hover:border-b-2"
                     >
-                      <Link
-                        href="/products"
-                        className="border-b-0 font-medium hover:border-b-2"
+                      <Button
+                        variant="deafult"
+                        className="flex items-center gap-2 p-0 text-white"
                       >
                         Shop Now
-                      </Link>
-                      <IoIosArrowRoundForward size={32} />
-                    </Button>
+                        <IoIosArrowRoundForward size={32} />
+                      </Button>
+                    </Link>
                   </div>
                   <Image className="" src={Iphone} alt="iphone"></Image>
                 </CardContent>
@@ -86,7 +89,7 @@ export default function ProductCaruesel() {
             ></Button>
           ))}
         </div>
-      </Carousel>
+      </Carousel> */}
     </div>
   );
 }
