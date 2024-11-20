@@ -7,9 +7,9 @@ import { RootState } from "@/lib/store";
 import { sortProducts, setView } from "@/lib/features/filterSlice";
 function FilterHeader() {
   const dispatch = useDispatch();
-  const productsLength = useSelector<RootState, any>(
-    (state) => state.filterSlice.productItems,
-  );
+  const productsLength =
+    useSelector<RootState, any>((state) => state.filterSlice.productItems) ||
+    "";
   const view = useSelector<RootState, any>((state) => state.filterSlice.view);
 
   return (

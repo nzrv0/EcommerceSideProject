@@ -14,9 +14,8 @@ import { fetchUser } from "@/lib/features/usersSlice";
 function WishListProducts() {
   const cookie = Cookies;
   const dispatch = useDispatch<AppDispatch>();
-  let data = useSelector<RootState, any>(
-    (state) => state.wishListSlice.wishList,
-  );
+  let data =
+    useSelector<RootState, any>((state) => state.wishListSlice.wishList) || "";
   let user_data = useUserData();
 
   useEffect(() => {
