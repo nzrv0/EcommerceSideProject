@@ -33,12 +33,10 @@ function Navbar() {
   const path = usePathname();
   const isActive = (href: string): boolean => href == path;
   const dispatch = useDispatch<AppDispatch>();
-  let whishlist = useSelector<RootState, any>(
-    (state) => state.wishListSlice.wishList,
-  );
-  let cartlist = useSelector<RootState, any>(
-    (state) => state.cartSlice.cardProducts,
-  );
+  let whishlist =
+    useSelector<RootState, any>((state) => state.wishListSlice.wishList) || "";
+  let cartlist =
+    useSelector<RootState, any>((state) => state.cartSlice.cardProducts) || "";
   let user_data = useUserData();
   useEffect(() => {
     dispatch(setWishList(user_data?.whishlist));
@@ -83,7 +81,7 @@ function Navbar() {
         <Link href="/wish" className="pl-6 pr-4">
           <div className="relative h-min w-min">
             <div className="absolute -right-[7px] -top-[5px] grid h-[20px] w-[20px] place-items-center rounded-full bg-secondary2 text-xs text-white">
-              {whishlist.length}
+              {whishlist?.length}
             </div>
             <RiHeartLine size={26} />
           </div>
@@ -91,7 +89,7 @@ function Navbar() {
         <Link href="/cart" className="pr-4">
           <div className="relative h-min w-min">
             <div className="absolute -right-[10px] -top-[8px] grid h-[20px] w-[20px] place-items-center rounded-full bg-secondary2 text-xs text-white">
-              {cartlist.length}
+              {cartlist?.length}
             </div>
             <RiShoppingCartLine size={24} />
           </div>

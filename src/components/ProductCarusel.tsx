@@ -38,8 +38,7 @@ export default function ProductCaruesel() {
   };
   return (
     <div className="w-full border-l-2 pl-10 pt-10">
-      <div></div>
-      {/* <Carousel setApi={setApi}>
+      <Carousel setApi={setApi}>
         <CarouselContent>
           {Array.from({ length: 5 }).map((_, index) => (
             <CarouselItem key={index}>
@@ -89,7 +88,7 @@ export default function ProductCaruesel() {
             ></Button>
           ))}
         </div>
-      </Carousel> */}
+      </Carousel>
     </div>
   );
 }

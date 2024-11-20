@@ -15,18 +15,15 @@ export default function Home() {
         <SideMenu />
         <ProductCaruesel />
       </main>
-      {/* <ProductsByDate Title="Today's" SubTitle="Flash Sales" Counter />
-            <hr className="max-w-[1170px] my-[70px]" />
-            <CategoriesCorusel />
-            <hr className="max-w-[1170px] my-[70px]" />
-            <ProductsByDate
-                Title="This Month"
-                SubTitle="Best Selling Products"
-            />
-            <TimeLimitedProduct />
-            <OurProducts />
-            <OurProductsShowcase />
-            <OurAdvantages /> */}
+      <ProductsByDate Title="Today's" SubTitle="Flash Sales" Counter />
+      <hr className="my-[70px] max-w-[1170px]" />
+      <CategoriesCorusel />
+      <hr className="my-[70px] max-w-[1170px]" />
+      <ProductsByDate Title="This Month" SubTitle="Best Selling Products" />
+      <TimeLimitedProduct />
+      <OurProducts />
+      <OurProductsShowcase />
+      <OurAdvantages />
     </div>
   );
 }
