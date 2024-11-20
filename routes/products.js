@@ -1,4 +1,3 @@
-import connectDB from "../mongoose.js";
 import express from "express";
 import {
     fetchProductById,
@@ -11,7 +10,6 @@ const router = express.Router();
 
 router.get("/products/product/id/:id", async (req, res) => {
     try {
-        await connectDB();
         const { id } = req.params;
         const product = await fetchProductById(id);
         res.status(200).json(product);

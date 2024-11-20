@@ -30,7 +30,10 @@ app.get("/loadimages", async (req, res) => {
     await create_images();
     res.status(200).send("everyhtin okey");
 });
-
+app.get("*", async (req, res) => {
+    await connectDB();
+    res.status(200).send("working");
+});
 // module.exports = app;
 
 // createProduct();
