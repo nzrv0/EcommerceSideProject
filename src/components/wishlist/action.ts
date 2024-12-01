@@ -1,14 +1,14 @@
 import axios from "axios";
 import Cookies from "js-cookie";
+const cookie = Cookies;
+const token = cookie.get("token");
+const URL = process.env.NEXT_PUBLIC_BACKEND_URL || "";
 
 export default async function handleAddWish(id: any) {
   try {
-    const URL = process.env.NEXT_PUBLIC_BACKEND_URL || "";
-
-    const cookie = Cookies;
-    const token = cookie.get("token");
-
+    console.log(token);
     let response: null | any = null;
+
     if (token) {
       response = await axios.post(
         `${URL}/user/addwish`,

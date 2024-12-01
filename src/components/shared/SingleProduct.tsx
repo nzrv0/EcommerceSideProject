@@ -15,7 +15,7 @@ import handleAddCart from "@/components/Cart/action";
 import Link from "next/link";
 function SingleProduct(props: any) {
   const {
-    id,
+    _id,
     image,
     title,
     price,
@@ -24,17 +24,18 @@ function SingleProduct(props: any) {
     discount,
     like_state = false,
   } = props;
+  console.log(props);
   const dispatch = useDispatch<AppDispatch>();
   const [like, setLike] = useState(like_state && true);
   const [card, setCard] = useState(false);
   function handleLike() {
     dispatch(addWish(props));
-    handleAddWish(id);
+    handleAddWish(_id);
     setLike(!like);
   }
   function handleCard() {
     dispatch(addCard(props));
-    handleAddCart(id, 1);
+    handleAddCart(_id, 1);
     setCard(!card);
   }
   return (
@@ -62,7 +63,7 @@ function SingleProduct(props: any) {
               {!like ? <FaRegHeart size={16} /> : <FaHeart size={16} />}
             </Button>
           </div>
-          <Link href={`product/${id}`}>
+          <Link href={`product/${_id}`}>
             <Image
               className="h-[200px] min-w-[180px] select-none object-contain"
               src={`data:image/png;base64,${image}`}

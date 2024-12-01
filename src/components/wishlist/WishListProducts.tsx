@@ -38,7 +38,7 @@ function WishListProducts() {
         {data?.map((item: any, key: any) => (
           <div key={key}>
             <SingleProduct
-              id={item._id}
+              _id={item._id}
               image={item.image}
               title={item.name}
               price={item.price}

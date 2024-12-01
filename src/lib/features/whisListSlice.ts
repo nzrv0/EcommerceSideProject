@@ -28,16 +28,15 @@ export const wishListSlice = createSlice({
   initialState,
   reducers: {
     addWish: (state, action) => {
-      console.log(action.payload);
       let tempProducts = state.wishList;
-      const { id } = action.payload;
-      const exists = state.wishList?.map((item: any) => item._id).includes(id);
+      const { _id } = action.payload;
+
+      const exists = state.wishList?.map((item: any) => item._id).includes(_id);
       if (!exists) {
         tempProducts.push(action.payload);
       } else {
-        tempProducts = tempProducts.filter((item: any) => item._id !== id);
+        tempProducts = tempProducts.filter((item: any) => item._id !== _id);
       }
-      console.log(current(tempProducts));
       state.wishList = tempProducts;
       if (typeof window !== "undefined") {
         window.localStorage.setItem(
