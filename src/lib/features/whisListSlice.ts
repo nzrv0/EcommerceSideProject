@@ -30,7 +30,6 @@ export const wishListSlice = createSlice({
     addWish: (state, action) => {
       let tempProducts = state.wishList;
       const { _id } = action.payload;
-
       const exists = state.wishList?.map((item: any) => item._id).includes(_id);
       if (!exists) {
         tempProducts.push(action.payload);
@@ -54,7 +53,7 @@ export const wishListSlice = createSlice({
       if (user_wish) {
         state.wishList = user_wish;
       } else {
-        state.wishList = data;
+        state.wishList = data || [];
       }
     },
   },

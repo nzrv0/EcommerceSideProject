@@ -24,7 +24,6 @@ function SingleProduct(props: any) {
     discount,
     like_state = false,
   } = props;
-  console.log(props);
   const dispatch = useDispatch<AppDispatch>();
   const [like, setLike] = useState(like_state && true);
   const [card, setCard] = useState(false);

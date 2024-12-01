@@ -15,7 +15,7 @@ interface InitialState {
 const initialState: InitialState = {
   cardProducts: [
     {
-      order: { id: "", name: "", image: "", price: 0 },
+      order: { _id: "", name: "", image: "", price: 0 },
       quantity: 0,
     },
   ],
@@ -27,13 +27,12 @@ export const cartSlice = createSlice({
   initialState,
   reducers: {
     addCard: (state, action) => {
-      const { id } = action.payload;
-      console.log(action.payload);
+      const { _id } = action.payload;
       const exists = state.cardProducts
-        ?.map((item: any) => item.order.id)
-        .includes(id);
+        ?.map((item: any) => item.order._id)
+        .includes(_id);
       if (!exists) {
-        state.cardProducts.push({ order: action.payload, quantity: 0 });
+        state.cardProducts.push({ order: action.payload, quantity: 1 });
       }
       console.log(current(state.cardProducts));
       if (typeof window !== "undefined") {
@@ -89,7 +88,7 @@ export const cartSlice = createSlice({
       if (user_wishes) {
         state.cardProducts = user_wishes;
       } else {
-        state.cardProducts = data;
+        state.cardProducts = data || [];
       }
 
       state.cardProducts?.map((item: any) => {

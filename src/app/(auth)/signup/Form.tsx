@@ -41,12 +41,10 @@ function SignInForm() {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     const response = await HandleSingUpRequest(values);
-    if (response) {
-      if (response.status === 201) {
-        router.push("/signin");
-      } else {
-        setError("User already exists");
-      }
+    if (response?.status === 201) {
+      router.push("/signin");
+    } else {
+      setError("User already exists");
     }
 
     if (error) {

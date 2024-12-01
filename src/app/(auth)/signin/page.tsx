@@ -42,7 +42,7 @@ function SignInForm() {
     try {
       const URL = process.env.NEXT_PUBLIC_BACKEND_URL || "";
       const { data, status } = await axios.post(
-        URL,
+        `${URL}/user/login`,
         {
           email: values.email,
           password: values.password,

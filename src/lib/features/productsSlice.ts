@@ -40,7 +40,7 @@ export const fetchProduct = createAsyncThunk(
 export const fetchAllProducts = createAsyncThunk(
   "products/fetchAllProducts",
   async (size: string) => {
-    const response = await axios.get(`${URL}/products?size=5`);
+    const response = await axios.get(`${URL}/products?size=12`);
     return response.data;
   },
 );
@@ -56,7 +56,7 @@ export const fetchByCategory = createAsyncThunk(
 
 export const productApi = createApi({
   reducerPath: "productApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "${URL}/" }),
+  baseQuery: fetchBaseQuery({ baseUrl: `${URL}/` }),
   endpoints: (builder) => ({
     getProductByName: builder.query({
       query: (name) => `product?name=${name}`,
