@@ -1,4 +1,6 @@
-### Preview: [Visit](https://ecommerce-side-project.vercel.app/)
+### Preview: 
+
+https://ecommerce-side-project.vercel.app/
 ![plot](./src/public/cover.png)
 
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
